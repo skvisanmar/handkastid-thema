@@ -1,0 +1,35 @@
+{
+	"$schema": "https://playground.wordpress.net/blueprint-schema.json",
+	"meta": {
+		"title": "Handkastið – nýtt þema",
+		"description": "Prufusíða með nýju þema og fréttum af handkastid.net"
+	},
+	"landingPage": "/",
+	"preferredVersions": { "php": "8.3", "wp": "latest" },
+	"features": { "networking": true },
+	"steps": [
+		{ "step": "login", "username": "admin", "password": "password" },
+		{ "step": "setSiteLanguage", "language": "is_IS" },
+		{
+			"step": "installTheme",
+			"themeData": {
+				"resource": "git:directory",
+				"url": "https://github.com/skvisanmar/handkastid-thema",
+				"ref": "main",
+				"path": "theme/handkastid"
+			},
+			"options": { "activate": true, "targetFolderName": "handkastid" }
+		},
+		{
+			"step": "writeFiles",
+			"writeToPath": "/wordpress/seed",
+			"filesTree": {
+				"resource": "git:directory",
+				"url": "https://github.com/skvisanmar/handkastid-thema",
+				"ref": "main",
+				"path": "local"
+			}
+		},
+		{ "step": "runPHP", "code": "<?php require '/wordpress/wp-load.php'; require '/wordpress/seed/seed.php';" }
+	]
+}

@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="is">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Handkastið forsíða</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=Libre+Franklin:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Útlit: hvítur flötur, blár haus með vallarlínum, rautt aðeins fyrir „í beinni“ og áherslur.
+   Uppröðun: leikjarönd efst → aðalfrétt + mest lesið → nýjast í dálki + hliðarstika → Bakhliðin → hlaðvarp */
+:root{
+  --blue:#1b3a8c;      /* úr merkinu */
+  --blue-deep:#10265f;
+  --red:#d6202e;       /* úr merkinu */
+  --bg:#f6f7fa;
+  --surface:#ffffff;
+  --ink:#121826;
+  --muted:#5b6478;
+  --line:#e1e4ec;
+  --chip:#eef1f8;
+  --on-blue:#ffffff;
+  --display:"Big Shoulders Display","Arial Narrow",Impact,sans-serif;
+  --body:"Libre Franklin",-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  --radius:6px;
+  --wrap:1240px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0c111c; --surface:#141b2a; --ink:#eef1f7; --muted:#9aa3b8; --line:#253047; --chip:#1c2538;
+    --blue:#2a4fb5; --blue-deep:#0f1d45; --red:#ff4553; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0c111c; --surface:#141b2a; --ink:#eef1f7; --muted:#9aa3b8; --line:#253047; --chip:#1c2538;
+  --blue:#2a4fb5; --blue-deep:#0f1d45; --red:#ff4553; color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 var(--body)}
+a{color:inherit;text-decoration:none}
+a:hover .h{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px}
+a:focus-visible,button:focus-visible{outline:3px solid var(--red);outline-offset:2px;border-radius:2px}
+img{max-width:100%;display:block}
+.wrap{max-width:var(--wrap);margin:0 auto;padding-inline:clamp(16px,3vw,32px)}
+.h{font-family:var(--display);font-weight:800;line-height:1.02;letter-spacing:.005em;text-wrap:balance;margin:0}
+.label{font:700 11px/1 var(--body);text-transform:uppercase;letter-spacing:.12em}
+.tag{display:inline-block;font:700 11px/1 var(--body);text-transform:uppercase;letter-spacing:.1em;color:var(--blue)}
+:root:not([data-theme="light"]) .tag{color:inherit}
+.tag.red{color:var(--red)}
+.meta{color:var(--muted);font-size:13px;font-variant-numeric:tabular-nums}
+.img{background:var(--chip) center/cover no-repeat;border-radius:var(--radius);aspect-ratio:3/2;max-width:100%}
+
+/* ---------- Haus ---------- */
+.top{background:var(--blue-deep);color:var(--on-blue);position:relative;overflow:hidden}
+.top .wrap{display:flex;align-items:center;gap:20px;padding-block:14px;position:relative;z-index:1}
+.brand{display:flex;align-items:center;gap:12px}
+.brand img{width:46px;height:46px;border-radius:50%;background:#fff}
+.brand b{font:900 30px/1 var(--display);letter-spacing:.02em;text-transform:uppercase}
+.brand small{display:block;font:500 12px/1.2 var(--body);opacity:.75;letter-spacing:.02em}
+.nav{display:flex;gap:4px;margin-left:auto;flex-wrap:wrap}
+.nav a{font:600 14px/1 var(--body);padding:10px 12px;border-radius:4px}
+.nav a:hover{background:rgba(255,255,255,.12)}
+.nav a.on{box-shadow:inset 0 -3px 0 var(--red)}
+.menu-btn{display:none;margin-left:auto;background:none;border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:4px;padding:8px 12px;font:600 14px var(--body)}
+/* vallarlínur: 6 m bogi og punktalína við 9 m */
+.court{position:absolute;right:-60px;top:-160px;width:520px;height:340px;pointer-events:none;opacity:.22}
+.subnav{background:var(--blue);color:var(--on-blue)}
+.subnav .wrap{display:flex;gap:22px;overflow-x:auto;padding-block:10px;scrollbar-width:none}
+.subnav a{font:500 13px/1.4 var(--body);white-space:nowrap;opacity:.88}
+.subnav a:hover{opacity:1;text-decoration:underline}
+
+/* ---------- Leikjavaktin ---------- */
+.ticker{background:var(--surface);border-bottom:1px solid var(--line)}
+.ticker .wrap{display:flex;align-items:stretch;gap:0;overflow-x:auto;padding-block:0}
+.ticker-head{display:flex;flex-direction:column;justify-content:center;gap:6px;padding:12px 18px 12px 0;border-right:1px solid var(--line);flex:0 0 auto}
+.ticker-head .h{font-size:22px;text-transform:uppercase}
+.live{display:inline-flex;align-items:center;gap:6px;color:var(--red)}
+.live::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--red);animation:pulse 1.6s infinite}
+@keyframes pulse{50%{opacity:.25}}
+.game{flex:0 0 auto;min-width:200px;padding:12px 18px;border-right:1px solid var(--line);display:grid;gap:4px}
+.game .comp{font:600 11px/1.2 var(--body);color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.row{display:flex;justify-content:space-between;gap:16px;font-weight:600;font-size:14px}
+.row .s{font:700 15px/1.3 var(--mono);font-variant-numeric:tabular-nums}
+.row.lose{color:var(--muted);font-weight:500}
+.game .st{font:500 12px/1.3 var(--mono);color:var(--muted)}
+.game .st.now{color:var(--red)}
+.ticker .all{flex:0 0 auto;display:flex;align-items:center;padding:12px 0 12px 18px;font-weight:700;font-size:13px;color:var(--blue);white-space:nowrap}
+.demo{font:600 10px/1 var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border:1px dashed var(--line);padding:3px 6px;border-radius:3px}
+
+/* ---------- Forsíðuhluti ---------- */
+main{padding-block:28px 56px;display:grid;gap:44px}
+.lead{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:28px}
+.hero{display:grid;gap:14px}
+.hero .img{aspect-ratio:16/9;position:relative}
+.hero .h{font-size:clamp(34px,4.6vw,58px)}
+.hero p{margin:0;color:var(--muted);font-size:17px;max-width:62ch}
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;border-top:3px solid var(--ink);padding-top:10px;margin-bottom:16px}
+.sec-head .h{font-size:26px;text-transform:uppercase}
+.sec-head a{font-size:13px;font-weight:700;color:var(--blue)}
+:root:not([data-theme="light"]) .sec-head a{color:inherit}
+
+.trio{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:8px}
+.card{display:grid;gap:8px;align-content:start}
+.card .h{font-size:21px}
+
+.mostread ol{list-style:none;margin:0;padding:0;display:grid;counter-reset:n}
+.mostread li{counter-increment:n;display:grid;grid-template-columns:44px minmax(0,1fr);gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}
+.mostread li::before{content:counter(n);font:900 38px/0.9 var(--display);color:var(--red)}
+.mostread .h{font-size:19px;font-weight:700}
+
+.adslot{border:1px dashed var(--line);border-radius:var(--radius);padding:10px;display:grid;gap:6px;background:var(--surface)}
+.adslot img{border-radius:4px;width:100%}
+/* Tómt auglýsingapláss: sýnir staðlaða stærð */
+.ad{display:grid;place-items:center;text-align:center;gap:4px;background:repeating-linear-gradient(135deg,var(--chip) 0 12px,var(--surface) 12px 24px);border:1px solid var(--line);border-radius:4px;color:var(--muted);max-width:100%;margin-inline:auto;width:100%}
+.ad b{font:700 13px/1.2 var(--body);color:var(--ink)}
+.ad span{font:500 12px/1.2 var(--mono)}
+.ad-label{font:700 10px/1 var(--body);text-transform:uppercase;letter-spacing:.12em;color:var(--muted);text-align:center;margin-bottom:6px}
+.ad-top{background:var(--surface);border-bottom:1px solid var(--line)}
+.ad-top .wrap{padding-block:14px}
+.ad-top .ad{max-width:970px;aspect-ratio:970/250}
+.ad-mpu{aspect-ratio:300/250;max-width:300px}
+.ad-half{aspect-ratio:300/600;max-width:300px}
+.ad-bill{max-width:970px;aspect-ratio:970/250}
+.ad-feed{padding:16px 0;border-bottom:1px solid var(--line)}
+.ad-feed .ad{aspect-ratio:auto;min-height:120px}
+.sticky{position:sticky;top:16px}
+.sponsor{display:flex;align-items:center;gap:8px;font:500 11px/1.2 var(--body);color:var(--muted);white-space:nowrap}
+.sponsor i{font-style:normal;display:inline-grid;place-items:center;height:22px;padding:0 8px;border:1px dashed var(--line);border-radius:3px;font:700 11px/1 var(--body);color:var(--ink)}
+.partners{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+.partners .ad{width:150px;height:60px;margin:0}
+@media (max-width:640px){
+  .ad-top .ad,.ad-bill{aspect-ratio:320/100;max-width:320px}
+}
+
+.split{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:28px}
+.feed{display:grid;gap:0}
+.item{display:grid;grid-template-columns:180px minmax(0,1fr);gap:18px;padding:16px 0;border-bottom:1px solid var(--line)}
+.item .img{aspect-ratio:3/2}
+.item .h{font-size:22px;margin-top:6px}
+.item .meta{margin-top:6px}
+.item.noimg{grid-template-columns:minmax(0,1fr)}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+.filters button{font:600 13px/1 var(--body);border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:9px 14px;border-radius:999px;cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.more{margin-top:18px;width:100%;padding:14px;font:700 14px var(--body);background:var(--surface);color:var(--ink);border:2px solid var(--ink);border-radius:var(--radius);cursor:pointer}
+
+aside{display:grid;gap:28px;align-content:start}
+table{width:100%;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums}
+th{font:700 11px/1 var(--body);text-transform:uppercase;letter-spacing:.08em;color:var(--muted);text-align:right;padding:8px 6px;border-bottom:2px solid var(--ink)}
+th:nth-child(-n+2){text-align:left}
+td{padding:9px 6px;border-bottom:1px solid var(--line);text-align:right;font-family:var(--mono);font-size:13px}
+td:nth-child(2){text-align:left;font-family:var(--body);font-weight:600;font-size:14px}
+td:first-child{text-align:left;color:var(--muted);width:24px}
+td:last-child{font-weight:700}
+tr.cut td{border-bottom:2px solid var(--red)}
+.tabs{display:flex;gap:0;border:1px solid var(--line);border-radius:4px;overflow:hidden;margin-bottom:10px}
+.tabs button{flex:1;padding:8px;font:600 13px var(--body);background:var(--surface);color:var(--muted);border:0;cursor:pointer}
+.tabs button[aria-pressed="true"]{background:var(--blue);color:var(--on-blue)}
+.note{font-size:12px;color:var(--muted);margin:8px 0 0}
+
+/* Bakhliðin */
+.backs{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(200px,1fr);gap:16px;overflow-x:auto;padding-bottom:8px;scroll-snap-type:x mandatory}
+.back{scroll-snap-align:start;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;display:grid;gap:12px;align-content:start}
+.mono{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;font:900 22px var(--display);color:var(--on-blue);background:var(--blue)}
+.back:nth-child(even) .mono{background:var(--red)}
+.back .h{font-size:20px;font-weight:700}
+.back q{font-size:14px;color:var(--muted);quotes:"„" "“"}
+
+/* Hlaðvarp */
+.pod{background:var(--blue-deep);color:var(--on-blue);border-radius:10px;padding:clamp(22px,4vw,40px);display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:28px;align-items:center;position:relative;overflow:hidden}
+.pod img{width:120px;height:120px;border-radius:50%;background:#fff}
+.pod .h{font-size:clamp(28px,3.4vw,42px);text-transform:uppercase}
+.pod p{margin:8px 0 0;opacity:.85;max-width:56ch}
+.pod .btns{display:flex;gap:10px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border-radius:999px;font:700 14px var(--body);background:#fff;color:#10265f}
+.btn.ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.45)}
+
+footer{background:var(--blue-deep);color:var(--on-blue)}
+footer .wrap{padding-block:36px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;font-size:14px}
+footer h4{font:700 12px/1 var(--body);text-transform:uppercase;letter-spacing:.1em;margin:0 0 12px;opacity:.7}
+footer ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+footer .copy{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.15);padding-top:18px;opacity:.65;font-size:13px}
+
+/* ---------- Skjástærðir ---------- */
+@media (max-width:980px){
+  .lead,.split{grid-template-columns:minmax(0,1fr)}
+  .nav{display:none}
+  .menu-btn{display:block}
+  .pod{grid-template-columns:minmax(0,1fr)}
+  .pod img{width:84px;height:84px}
+  footer .wrap{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:640px){
+  .trio{grid-template-columns:minmax(0,1fr)}
+  .trio .card{grid-template-columns:120px minmax(0,1fr);gap:12px}
+  .trio .card .img{grid-row:span 3}
+  .item{grid-template-columns:110px minmax(0,1fr);gap:12px}
+  .item .h{font-size:18px}
+  .brand b{font-size:24px}
+  .brand small{display:none}
+}
+@media (prefers-reduced-motion:reduce){.live::before{animation:none}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="top">
+    <svg class="court" viewBox="0 0 520 340" fill="none" aria-hidden="true">
+      <path d="M40 0 A220 220 0 0 0 480 0" stroke="#fff" stroke-width="3"/>
+      <path d="M-20 0 A280 280 0 0 0 540 0" stroke="#fff" stroke-width="3" stroke-dasharray="14 12"/>
+      <line x1="230" y1="250" x2="290" y2="250" stroke="#fff" stroke-width="3"/>
+    </svg>
+    <div class="wrap">
+      <a class="brand" href="#">
+        <img src="https://handkastid.net/wp-content/uploads/2025/05/cropped-handkastid-2-150x150.jpg" alt="">
+        <span><b>Handkastið</b><small>Allt um handboltann</small></span>
+      </a>
+      <nav class="nav" aria-label="Aðalvalmynd">
+        <a class="on" href="#">Fréttir</a>
+        <a href="https://handkastid.net/nyjustu-urslit/">Úrslit</a>
+        <a href="https://handkastid.net/naestu-leikir/">Næstu leikir</a>
+        <a href="https://handkastid.net/stodutoflur/">Stöðutöflur</a>
+        <a href="#hladvarp">Hlaðvarp</a>
+        <a href="https://handkastid.net/um-handkastid/">Um okkur</a>
+      </nav>
+      <button class="menu-btn" type="button">Valmynd</button>
+    </div>
+  </div>
+  <div class="subnav">
+    <div class="wrap">
+      <a href="https://handkastid.net/category/strakarnir-okkar/">Strákarnir okkar</a>
+      <a href="https://handkastid.net/category/stelpurnar-okkar/">Stelpurnar okkar</a>
+      <a href="https://handkastid.net/category/islenskar-frettir-karla/">Olís-deild karla</a>
+      <a href="https://handkastid.net/category/islenskar-frettir-kvenna/">Olís-deild kvenna</a>
+      <a href="https://handkastid.net/category/erlendar-frettir-karla/">Erlent – karlar</a>
+      <a href="https://handkastid.net/category/erlendar-frettir-kvenna/">Erlent – konur</a>
+      <a href="https://handkastid.net/category/bakhlidin/">Bakhliðin</a>
+      <a href="https://handkastid.net/category/yngri-landslid/">Yngri landslið</a>
+    </div>
+  </div>
+</header>
+
+<div class="ad-top">
+  <div class="wrap">
+    <div class="ad-label">Auglýsing</div>
+    <div class="ad"><b>Topp-borði</b><span>970×250 · sími 320×100</span></div>
+  </div>
+</div>
+
+<section class="ticker" aria-label="Leikjavaktin">
+  <div class="wrap">
+    <div class="ticker-head">
+      <span class="h">Leikjavaktin</span>
+      <span class="sponsor">í boði <i>Merki kostunaraðila</i></span>
+      <span class="demo">Sýnidæmi</span>
+    </div>
+    <div class="game">
+      <span class="comp">Powerade-bikar karla</span>
+      <div class="row lose"><span>HK</span><span class="s">27</span></div>
+      <div class="row"><span>Afturelding</span><span class="s">33</span></div>
+      <span class="st">Lokið · (13–16)</span>
+    </div>
+    <div class="game">
+      <span class="comp">Powerade-bikar karla</span>
+      <div class="row"><span>Haukar</span><span class="s">31</span></div>
+      <div class="row lose"><span>Stjarnan</span><span class="s">24</span></div>
+      <span class="st">Lokið · (15–11)</span>
+    </div>
+    <div class="game">
+      <span class="comp">Grill 66-deild kvenna</span>
+      <div class="row lose"><span>Víkingur</span><span class="s">22</span></div>
+      <div class="row"><span>Afturelding</span><span class="s">29</span></div>
+      <span class="st">Lokið · (10–14)</span>
+    </div>
+    <div class="game">
+      <span class="comp">Olís-deild kvenna</span>
+      <div class="row"><span>Valur</span><span class="s">14</span></div>
+      <div class="row"><span>Fram</span><span class="s">12</span></div>
+      <span class="st now"><span class="live label">Í beinni</span> 34. mín</span>
+    </div>
+    <div class="game">
+      <span class="comp">Olís-deild karla</span>
+      <div class="row"><span>FH</span><span class="s">–</span></div>
+      <div class="row"><span>ÍBV</span><span class="s">–</span></div>
+      <span class="st">Í kvöld 19:30</span>
+    </div>
+    <a class="all" href="https://handkastid.net/leikir-og-urslit-dagsins/">Allir leikir dagsins →</a>
+  </div>
+</section>
+
+<main class="wrap">
+
+  <!-- Aðalfrétt + mest lesið -->
+  <section class="lead">
+    <div>
+      <a class="hero" href="https://handkastid.net/2026/10/07/gisli-thorgeir-og-omar-ingi-med-22-mork-i-sigri-magdeburg-einar-bragi-skoradi-tiu-i-thridju-umferd-meistaradeild-evropu/">
+        <div class="img" style="background-image:url('https://handkastid.net/wp-content/uploads/brizy/imgs/AFP__20260823__dpa-pa_614340661__v1__MidRes__HandballRexelSuperCup2026ForMenScMagdeb-1510x1006x168x0x1342x1006x1789985886.jpg')" role="img" aria-label="Leikmenn Magdeburg"></div>
+        <span class="tag">Meistaradeild Evrópu</span>
+        <h1 class="h">Gísli Þorgeir og Ómar Ingi með 22 mörk – Einar Bragi skoraði tíu</h1>
+        <p>Íslendingarnir í Magdeburg fóru fyrir sínu liði í þriðju umferð Meistaradeildarinnar og Einar Bragi átti sinn besta leik í keppninni.</p>
+        <span class="meta">7. október · 22:14</span>
+      </a>
+
+      <div class="trio">
+        <a class="card" href="https://handkastid.net/2026/10/06/landslidshopur-valinn-fyrir-vinattulandsleiki-gegn-pollandi/">
+          <div class="img" style="background-image:url('https://handkastid.net/wp-content/uploads/brizy/imgs/R62_0686-840x600x20x0x800x600x1791132138.jpg')"></div>
+          <span class="tag red">Strákarnir okkar</span>
+          <h2 class="h">Landsliðshópur valinn fyrir vináttulandsleiki gegn Póllandi</h2>
+        </a>
+        <a class="card" href="https://handkastid.net/2026/10/07/lid-5-umferdar-i-olisdeild-karla-2/">
+          <div class="img" style="background-image:url('https://handkastid.net/wp-content/uploads/brizy/imgs/708191753_18534089401072279_3570133946703465027_n-802x854x0x126x802x602x1779967709.jpg')"></div>
+          <span class="tag">Olís-deild karla</span>
+          <h2 class="h">Lið 5. umferðar í Olísdeild karla</h2>
+        </a>
+        <a class="card" href="#">
+          <div class="img" style="background-image:url('https://handkastid.net/wp-content/uploads/brizy/imgs/16.09.2026-128-900x600x50x0x800x600x1789635639.jpg')"></div>
+          <span class="tag">Olís-deild karla</span>
+          <h2 class="h">Bjarni Ófeigur ekki með KA næstu vikurnar – Gæti misst sjón varanlega</h2>
+        </a>
+      </div>
+    </div>
+
+    <aside>
+      <div class="mostread">
+        <div class="sec-head"><h2 class="h">Mest lesið</h2></div>
+        <ol>
+          <li><a href="https://handkastid.net/2026/10/08/hatt-i-30-manns-bunir-ad-lata-vita-ad-their-vilji-spila/"><span class="h">Hátt í 30 manns búnir að láta vita að þeir vilji spila</span></a></li>
+          <li><a href="#"><span class="h">Tvö klúðruð víti reyndust Stjörnunni dýr í tapi gegn HK</span></a></li>
+          <li><a href="#"><span class="h">Haukur er óumdeildur – besti 16 ára leikmaður Íslands í sögunni</span></a></li>
+          <li><a href="#"><span class="h">Fullar sættir í máli Harðar og Stjörnunnar – kvartanir dregnar til baka</span></a></li>
+          <li><a href="#"><span class="h">Telur leikmenn ÍBV upplifa sig svikna eftir brotthvarf Erlings</span></a></li>
+        </ol>
+      </div>
+      <div>
+        <div class="ad-label">Auglýsing</div>
+        <div class="ad ad-mpu"><b>Kassi</b><span>300×250</span></div>
+      </div>
+      <div class="adslot">
+        <span class="label meta">Auglýsing</span>
+        <img src="https://handkastid.net/wp-content/uploads/Handkastid-1018x360px-2-768x272.jpg" alt="Auglýsing">
+      </div>
+    </aside>
+  </section>
+
+  <!-- Nýjustu fréttir + stöðutafla -->
+  <section class="split">
+    <div>
+      <div class="sec-head"><h2 class="h">Nýjustu fréttir</h2><a href="#">Allar fréttir →</a></div>
+      <div class="filters" role="group" aria-label="Sía fréttir">
+        <button type="button" aria-pressed="true" data-f="all">Allt</button>
+        <button type="button" aria-pressed="false" data-f="is">Ísland</button>
+        <button type="button" aria-pressed="false" data-f="er">Erlent</button>
+        <button type="button" aria-pressed="false" data-f="kv">Konur</button>
+        <button type="button" aria-pressed="false" data-f="ka">Karlar</button>
+      </div>
+      <div class="feed" id="feed">
+        <a class="item" data-c="is ka" href="https://handkastid.net/2026/10/08/powerade-bikar-karla-hk-afturelding/">
+          <div class="img" style="background-image:url('https://handkastid.net/wp-content/uploads/brizy/imgs/R62_0686-678x484x0x3x678x478x1791132138.jpg')"></div>
+          <div><span class="tag">Powerade-bikar karla</span><h3 class="h">Afturelding flaug áfram eftir sigur í Kórnum</h3><div class="meta">8. október · 21:48</div></div>
+        </a>
+        <a class="item noimg" data-c="is kv" href="https://handkastid.net/2026/10/08/grill66-kvenna-vikingur-afturelding-2/">
+          <div><span class="tag">Grill 66-deild kvenna</span><h3 class="h">Katrín Helga með þrettán í sigri Aftureldingar</h3><div class="meta">8. október · 21:30</div></div>
+        </a>
+        <a class="item" data-c="is ka" href="https://handkastid.net/2026/10/08/powerade-bikar-karla-haukar-stjarnan/">
+          <div class="img" style="background-image:url('https://handkastid.net/wp-content/uploads/brizy/imgs/515585851_10163079004952422_2761819116226374975_n-343x239x11x0x320x239x1757424547.jpg')"></div>
+          <div><span class="tag">Powerade-bikar karla</span><h3 class="h">Haukar verða í pottinum í næstu umferð eftir þægilegan sigur</h3><div class="meta">8. október · 21:12</div></div>
+        </a>
+        <div class="ad-feed"><div class="ad-label">Auglýsing</div><div class="ad"><b>Auglýsing í fréttastraumi</b><span>Innfelld · 728×90 / 300×250 í síma</span></div></div>
+        <a class="item noimg" data-c="er ka" href="https://handkastid.net/2026/10/08/gidsel-med-17-mork-i-sigri-a-porto-og-onnur-urslit-kvoldsins-i-meistaradeildinni/">
+          <div><span class="tag">Meistaradeild Evrópu</span><h3 class="h">Gidsel með 17 mörk í sigri á Porto og Donni fagnaði sigri</h3><div class="meta">8. október · 20:55</div></div>
+        </a>
+        <a class="item noimg" data-c="is ka" href="https://handkastid.net/2026/10/08/thjalfarinn-raedur-og-hvad-er-ad-faedast-i-mosfellsbaenum/">
+          <div><span class="tag red">Hlaðvarp</span><h3 class="h">Þjálfarinn ræður og hvað er að fæðast í Mosfellsbænum?</h3><div class="meta">8. október · 17:00</div></div>
+        </a>
+        <a class="item noimg" data-c="er ka" href="https://handkastid.net/2026/10/08/eisenach-kom-a-ovart-i-mannheim-fyrsti-utisigur-timabilsins/">
+          <div><span class="tag">Þýskaland</span><h3 class="h">Eisenach kom á óvart í Mannheim – Fyrsti útisigur tímabilsins</h3><div class="meta">8. október · 16:20</div></div>
+        </a>
+        <a class="item noimg" data-c="er ka" href="https://handkastid.net/2026/10/08/gisli-stodsendingahaestur-tveir-islendingar-a-topp-fimm/">
+          <div><span class="tag red">Strákarnir okkar</span><h3 class="h">Gísli stoðsendingahæstur – Tveir Íslendingar á topp fimm</h3><div class="meta">8. október · 14:05</div></div>
+        </a>
+        <div class="ad-feed"><div class="ad-label">Auglýsing</div><div class="ad"><b>Kostað efni</b><span>Grein frá samstarfsaðila, merkt sem kostuð</span></div></div>
+        <a class="item noimg" data-c="er kv" href="https://handkastid.net/2026/10/07/nora-mork-flutt-a-sjukrahus-eftir-arekstur-vid-domara/">
+          <div><span class="tag">Erlent – konur</span><h3 class="h">Nora Mørk flutt á sjúkrahús eftir árekstur við dómara</h3><div class="meta">7. október · 20:41</div></div>
+        </a>
+        <a class="item noimg" data-c="is kv" href="https://handkastid.net/2026/10/07/hafdis-og-britney-fra-vegna-meidsla-ovist-hvenaer-thaer-snua-aftur/">
+          <div><span class="tag">Olís-deild kvenna</span><h3 class="h">Hafdís og Britney frá vegna meiðsla – Óvíst hvenær þær snúa aftur</h3><div class="meta">7. október · 15:10</div></div>
+        </a>
+      </div>
+      <button class="more" type="button">Sýna fleiri fréttir</button>
+    </div>
+
+    <aside>
+      <div>
+        <div class="sec-head"><h2 class="h">Staðan</h2><a href="https://handkastid.net/stodutoflur/">Allar töflur →</a></div>
+        <div class="tabs" role="group" aria-label="Deild">
+          <button type="button" aria-pressed="true">Olís karla</button>
+          <button type="button" aria-pressed="false">Olís kvenna</button>
+        </div>
+        <table>
+          <thead><tr><th>#</th><th>Lið</th><th>L</th><th>Mörk</th><th>Stig</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Haukar</td><td>5</td><td>+31</td><td>10</td></tr>
+            <tr><td>2</td><td>FH</td><td>5</td><td>+18</td><td>8</td></tr>
+            <tr><td>3</td><td>Valur</td><td>5</td><td>+15</td><td>8</td></tr>
+            <tr><td>4</td><td>Afturelding</td><td>5</td><td>+9</td><td>7</td></tr>
+            <tr><td>5</td><td>Fram</td><td>5</td><td>+4</td><td>6</td></tr>
+            <tr><td>6</td><td>KA</td><td>5</td><td>+1</td><td>5</td></tr>
+            <tr><td>7</td><td>ÍBV</td><td>5</td><td>−2</td><td>5</td></tr>
+            <tr class="cut"><td>8</td><td>Stjarnan</td><td>5</td><td>−6</td><td>4</td></tr>
+            <tr><td>9</td><td>HK</td><td>5</td><td>−10</td><td>3</td></tr>
+            <tr><td>10</td><td>Selfoss</td><td>5</td><td>−24</td><td>0</td></tr>
+          </tbody>
+        </table>
+        <p class="note">Rauða línan sýnir hvaða lið komast í úrslitakeppnina. Tölurnar eru sýnidæmi.</p>
+      </div>
+
+      <div>
+        <div class="sec-head"><h2 class="h">Næstu leikir</h2></div>
+        <table>
+          <tbody>
+            <tr><td></td><td>FH – ÍBV</td><td colspan="3">Í kvöld 19:30</td></tr>
+            <tr><td></td><td>Valur – KA</td><td colspan="3">Lau 16:00</td></tr>
+            <tr><td></td><td>Selfoss – Fram</td><td colspan="3">Lau 18:00</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="sticky">
+        <div class="ad-label">Auglýsing</div>
+        <div class="ad ad-half"><b>Hálfsíða – fylgir skruni</b><span>300×600</span></div>
+      </div>
+    </aside>
+  </section>
+
+  <!-- Billboard -->
+  <div>
+    <div class="ad-label">Auglýsing</div>
+    <div class="ad ad-bill"><b>Billboard</b><span>970×250 · sími 320×100</span></div>
+  </div>
+
+  <!-- Bakhliðin -->
+  <section>
+    <div class="sec-head"><h2 class="h">Bakhliðin <span class="sponsor" style="display:inline-flex;vertical-align:middle;margin-left:8px">í boði <i>Kostunaraðili</i></span></h2><a href="https://handkastid.net/category/bakhlidin/">Allir viðmælendur →</a></div>
+    <div class="backs">
+      <a class="back" href="#"><span class="mono">KS</span><h3 class="h">Katrín Sigríður Scheving Thorsteinsson</h3><q>Hver er fyrirmyndin, hvaða lag fer á fyrir leik og hver er fyndnastur í klefanum?</q></a>
+      <a class="back" href="#"><span class="mono">HH</span><h3 class="h">Hákon Ingi Halldórsson</h3><q>Leikmenn deildarinnar svara spurningunum sem enginn annar spyr.</q></a>
+      <a class="back" href="#"><span class="mono">SM</span><h3 class="h">Sigurður Páll Matthíasson</h3><q>Hver er fyrirmyndin, hvaða lag fer á fyrir leik og hver er fyndnastur í klefanum?</q></a>
+      <a class="back" href="#"><span class="mono">ME</span><h3 class="h">Margrét Einarsdóttir</h3><q>Leikmenn deildarinnar svara spurningunum sem enginn annar spyr.</q></a>
+      <a class="back" href="#"><span class="mono">AD</span><h3 class="h">Arnór Máni Daðason</h3><q>Hver er fyrirmyndin, hvaða lag fer á fyrir leik og hver er fyndnastur í klefanum?</q></a>
+    </div>
+  </section>
+
+  <!-- Hlaðvarp -->
+  <section class="pod" id="hladvarp">
+    <img src="https://handkastid.net/wp-content/uploads/2025/05/cropped-handkastid-2-150x150.jpg" alt="Merki Handkastsins">
+    <div>
+      <span class="label" style="opacity:.75">Hlaðvarpið síðan 2017 · Í boði [kostunaraðila]</span>
+      <h2 class="h" style="margin-top:8px">Þjálfarinn ræður og hvað er að fæðast í Mosfellsbænum?</h2>
+      <p>Nýjasti þáttur Handkastsins. Farið yfir bikarkvöldið, 5. umferð Olís-deildarinnar og landsliðshópinn fyrir Pólland.</p>
+    </div>
+    <div class="btns">
+      <a class="btn" href="#">▶ Hlusta</a>
+      <a class="btn ghost" href="#">Spotify</a>
+      <a class="btn ghost" href="#">Apple</a>
+    </div>
+  </section>
+
+  <!-- Samstarfsaðilar -->
+  <section>
+    <div class="ad-label">Samstarfsaðilar Handkastsins</div>
+    <div class="partners">
+      <div class="ad"><b>Merki</b></div><div class="ad"><b>Merki</b></div><div class="ad"><b>Merki</b></div><div class="ad"><b>Merki</b></div><div class="ad"><b>Merki</b></div><div class="ad"><b>Merki</b></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div><h4>Fréttir</h4><ul><li>Strákarnir okkar</li><li>Stelpurnar okkar</li><li>Olís-deildirnar</li><li>Erlent</li></ul></div>
+    <div><h4>Leikir</h4><ul><li>Úrslit</li><li>Næstu leikir</li><li>Stöðutöflur</li></ul></div>
+    <div><h4>Handkastið</h4><ul><li>Hlaðvarp</li><li>Bakhliðin</li><li>Um Handkastið</li></ul></div>
+    <div><h4>Fylgdu okkur</h4><ul><li>Instagram</li><li>Facebook</li><li>X</li></ul></div>
+    <div class="copy">Handkastið – allt um handboltann. Stofnað sem hlaðvarp sumarið 2017.</div>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.filters button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.filters button').forEach(x=>x.setAttribute('aria-pressed',x===b));
+  const f=b.dataset.f;
+  document.querySelectorAll('#feed .item').forEach(it=>{
+    it.hidden = f!=='all' && !it.dataset.c.split(' ').includes(f);
+  });
+}));
+document.querySelectorAll('.tabs button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.tabs button').forEach(x=>x.setAttribute('aria-pressed',x===b));
+}));
+</script>
+</body>
+</html>

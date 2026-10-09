@@ -1,0 +1,11 @@
+{
+	"$schema": "https://playground.wordpress.net/blueprint-schema.json",
+	"landingPage": "/",
+	"preferredVersions": { "php": "8.3", "wp": "latest" },
+	"steps": [
+		{ "step": "login", "username": "admin", "password": "password" },
+		{ "step": "setSiteLanguage", "language": "is_IS" },
+		{ "step": "activateTheme", "themeFolderName": "handkastid" },
+		{ "step": "runPHP", "code": "<?php require '/wordpress/wp-load.php'; require '/seed/seed.php';" }
+	]
+}
