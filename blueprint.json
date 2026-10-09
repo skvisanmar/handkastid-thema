@@ -2,7 +2,8 @@
 	"$schema": "https://playground.wordpress.net/blueprint-schema.json",
 	"meta": {
 		"title": "Handkastið – nýtt þema",
-		"description": "Prufusíða með nýju þema og fréttum af handkastid.net"
+		"description": "Prufusíða með nýju þema og fréttum af handkastid.net",
+		"author": "skvisanmar"
 	},
 	"landingPage": "/",
 	"preferredVersions": { "php": "8.3", "wp": "latest" },
