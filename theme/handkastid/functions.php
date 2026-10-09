@@ -5,7 +5,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'HK_VERSION', '0.1.2' );
+define( 'HK_VERSION', '0.2.0' );
 
 require get_template_directory() . '/inc/helpers.php';
 require get_template_directory() . '/inc/ads.php';

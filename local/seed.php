@@ -81,6 +81,16 @@ update_option( 'date_format', 'j. F Y' );
 update_option( 'time_format', 'H:i' );
 update_option( 'posts_per_page', 15 );
 
+// Varagögn frá HSÍ, notuð ef prufusíðan nær ekki sambandi við hsi.is
+foreach ( glob( __DIR__ . '/hsi/*.json' ) as $file ) {
+	if ( preg_match( '/(matches|standings)-(\d+)\.json$/', $file, $m ) ) {
+		$json = json_decode( file_get_contents( $file ), true );
+		if ( isset( $json['data'] ) ) {
+			update_option( "hk_hsi_{$m[1]}_{$m[2]}_last", $json['data'], false );
+		}
+	}
+}
+
 // Eyða sjálfgefnu „Hello world“-færslunni og prufusíðunni
 wp_delete_post( 1, true );
 wp_delete_post( 2, true );

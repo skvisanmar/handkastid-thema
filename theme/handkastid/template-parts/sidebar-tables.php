@@ -23,11 +23,11 @@ $up = hk_upcoming();
 			</table>
 		</div>
 	<?php $i++; endforeach; ?>
-	<p class="note">Rauða línan sýnir hvaða lið komast í úrslitakeppnina.<?php echo $st['sample'] ? ' Tölurnar eru sýnidæmi.' : ''; ?></p>
+	<p class="note">Rauða línan sýnir hvaða lið komast í úrslitakeppnina. Heimild: HSÍ.</p>
 </div>
 
 <div>
-	<div class="sec-head"><h2 class="h">Næstu leikir</h2><?php if ( $up['sample'] ) : ?><span class="demo">Sýnidæmi</span><?php endif; ?></div>
+	<div class="sec-head"><h2 class="h">Næstu leikir</h2><a href="<?php echo esc_url( hk_page_url( 'naestu-leikir' ) ); ?>">Allir leikir →</a></div>
 	<table class="upcoming">
 		<tbody>
 		<?php foreach ( $up['games'] as [ $match, $when ] ) : ?>

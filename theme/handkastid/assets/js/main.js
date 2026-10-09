@@ -47,3 +47,22 @@ document.querySelectorAll('.copy-link').forEach((b) => {
 		}
 	});
 });
+
+// Deildahnappar: skipta um töflu (Stöðutöflur) eða sía leiki (úrslit, næstu leikir)
+document.querySelectorAll('.league-tabs').forEach((tabs) => {
+	const buttons = tabs.querySelectorAll('button');
+	const panels = document.querySelectorAll('.league-panel');
+	const select = (key, push) => {
+		buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.league === key)));
+		if (panels.length) {
+			panels.forEach((p) => { p.hidden = p.dataset.panel !== key; });
+		} else {
+			document.querySelectorAll('.match').forEach((m) => { m.hidden = key !== 'all' && m.dataset.league !== key; });
+			document.querySelectorAll('.day').forEach((d) => { d.hidden = !d.querySelector('.match:not([hidden])'); });
+		}
+		if (push) history.replaceState(null, '', key === 'all' ? location.pathname : '#' + key);
+	};
+	buttons.forEach((b) => b.addEventListener('click', () => select(b.dataset.league, true)));
+	const hash = location.hash.slice(1);
+	if (hash && tabs.querySelector('[data-league="' + hash + '"]')) select(hash, false);
+});

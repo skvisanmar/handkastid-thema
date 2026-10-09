@@ -3,32 +3,32 @@ $data = hk_games();
 if ( ! $data['games'] ) {
 	return;
 }
+$leagues = hk_leagues();
 ?>
 <section class="ticker" aria-label="Leikjavaktin">
 	<div class="wrap">
 		<div class="ticker-head">
 			<span class="h">Leikjavaktin</span>
 			<?php hk_sponsor( 'games' ); ?>
-			<?php if ( $data['sample'] ) : ?><span class="demo">Sýnidæmi</span><?php endif; ?>
 		</div>
 		<?php foreach ( $data['games'] as $g ) :
 			$done = 'done' === $g['state'];
-			$home_lost = $done && $g['hs'] < $g['as'];
-			$away_lost = $done && $g['as'] < $g['hs'];
 			?>
 			<div class="game">
-				<span class="comp"><?php echo esc_html( $g['comp'] ); ?></span>
-				<div class="row<?php echo $home_lost ? ' lose' : ''; ?>"><span><?php echo esc_html( $g['home'] ); ?></span><span class="s"><?php echo null === $g['hs'] ? '–' : (int) $g['hs']; ?></span></div>
-				<div class="row<?php echo $away_lost ? ' lose' : ''; ?>"><span><?php echo esc_html( $g['away'] ); ?></span><span class="s"><?php echo null === $g['as'] ? '–' : (int) $g['as']; ?></span></div>
+				<span class="comp"><?php echo esc_html( $leagues[ $g['league'] ]['short'] ); ?></span>
+				<div class="row<?php echo $done && $g['hs'] < $g['as'] ? ' lose' : ''; ?>"><span><?php echo esc_html( $g['home'] ); ?></span><span class="s"><?php echo null === $g['hs'] ? '–' : (int) $g['hs']; ?></span></div>
+				<div class="row<?php echo $done && $g['as'] < $g['hs'] ? ' lose' : ''; ?>"><span><?php echo esc_html( $g['away'] ); ?></span><span class="s"><?php echo null === $g['as'] ? '–' : (int) $g['as']; ?></span></div>
 				<?php if ( 'live' === $g['state'] ) : ?>
-					<span class="st now"><span class="live label">Í beinni</span> <?php echo esc_html( $g['note'] ?? '' ); ?></span>
+					<span class="st now"><span class="live label">Í gangi</span></span>
+				<?php elseif ( 'pending' === $g['state'] ) : ?>
+					<span class="st">Úrslit ókomin</span>
 				<?php elseif ( $done ) : ?>
-					<span class="st">Lokið<?php echo ! empty( $g['ht'] ) ? ' · (' . esc_html( $g['ht'] ) . ')' : ''; ?></span>
+					<span class="st"><?php echo esc_html( hk_dayname( $g['ts'], true ) ); ?> · Lokið<?php echo null !== $g['hhs'] ? ' (' . (int) $g['hhs'] . '–' . (int) $g['has'] . ')' : ''; ?></span>
 				<?php else : ?>
-					<span class="st"><?php echo esc_html( $g['note'] ?? '' ); ?></span>
+					<span class="st"><?php echo esc_html( hk_kickoff( $g['ts'] ) ); ?></span>
 				<?php endif; ?>
 			</div>
 		<?php endforeach; ?>
-		<a class="all" href="<?php echo esc_url( hk_page_url( 'leikir-og-urslit-dagsins' ) ); ?>">Allir leikir dagsins →</a>
+		<a class="all" href="<?php echo esc_url( hk_page_url( 'leikir-og-urslit-dagsins' ) ); ?>">Allir leikir →</a>
 	</div>
 </section>

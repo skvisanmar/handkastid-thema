@@ -24,7 +24,13 @@ geymast ekki, en breytingar á skránum í `theme/handkastid/` sjást strax við
 - **Kostunaraðilar, hlaðvarpsslóðir og samfélagsmiðlar:** Útlit → Sérsníða → Handkastið.
   Þar er líka slökkt á merktu auðu auglýsingaplássunum áður en síðan fer í loftið.
 
-## Ekki enn tengt
+## Gögn frá HSÍ
 
-Leikjavaktin, stöðutöflur og næstu leikir sýna sýnidæmi. Raunveruleg gögn tengjast í
-`inc/games.php` með síunum `hk_games`, `hk_standings` og `hk_upcoming` þegar ljóst er hvaðan þau koma.
+Leikjavaktin, stöðutöflur, úrslit og næstu leikir eru sótt beint úr vefþjónustu HSÍ
+(`https://www.hsi.is/api/hsi/tournaments/{mót}/matches` og `/standings`) og geymd í 10 mínútur.
+Ef HSÍ svarar ekki eru síðustu gögn notuð. Mótanúmerin breytast á hverju tímabili og eru í
+`hk_leagues()` í `inc/games.php` (2026–27: Olís karla 9142, Olís kvenna 9141, Grill 66 karla 9140,
+Grill 66 kvenna 9143). Þar eru líka svæðin í töflunum (úrslitakeppni, umspil, fall).
+
+
+
